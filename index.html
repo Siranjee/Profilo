@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Siranjeevi | Portfolio</title>
+    <meta name="description" content="Professional portfolio website showcasing skills, projects, and contact information." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="#home">Siranjeevi</a>
+        <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="nav-links" aria-label="Primary navigation">
+          <a href="#home">Home</a>
+          <a href="#about">About Me</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero section" id="home">
+          <div class="hero-content">
+            <p class="eyebrow">Creative Developer</p>
+            <h1>Building modern web experiences with clarity and impact.</h1>
+            <p class="hero-text">
+              I’m a passionate frontend developer focused on crafting elegant, responsive websites that feel professional, intuitive, and memorable.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#projects">View My Projects</a>
+              <a class="btn btn-secondary" href="#contact">Contact Me</a>
+            </div>
+          </div>
+          <div class="hero-card">
+            <div class="avatar">S</div>
+            <h3>Available for freelance work</h3>
+            <p>Focused on building polished websites, interfaces, and product experiences.</p>
+          </div>
+        </section>
+
+        <section class="section" id="about">
+          <div class="section-heading">
+            <p class="eyebrow">About Me</p>
+            <h2>Designing simple, effective experiences.</h2>
+          </div>
+          <div class="about-grid">
+            <div class="card profile-card">
+              <div class="profile-placeholder">
+                <span>YN</span>
+              </div>
+              <p class="profile-caption">Frontend Developer • Creative Problem Solver</p>
+            </div>
+            <div class="card about-content-card">
+              <p>
+                I’m a frontend developer with a strong eye for detail and a love for intuitive interfaces.
+                My work focuses on creating modern, responsive websites that feel effortless to use and thoughtfully crafted.
+              </p>
+              <ul class="info-list">
+                <li><strong>Location:</strong> Remote / Worldwide</li>
+                <li><strong>Focus:</strong> UI, Web Development, Performance</li>
+                <li><strong>Tools:</strong> HTML, CSS, JavaScript, React</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="skills">
+          <div class="section-heading">
+            <p class="eyebrow">Skills</p>
+            <h2>What I bring to the table.</h2>
+          </div>
+          <div class="skills-grid">
+            <article class="card skill-card">
+              <h3>Frontend</h3>
+              <p>Responsive layouts, semantic HTML, polished CSS, and modern JavaScript.</p>
+            </article>
+            <article class="card skill-card">
+              <h3>UI/UX</h3>
+              <p>Thoughtful interactions, accessible design patterns, and refined visual systems.</p>
+            </article>
+            <article class="card skill-card">
+              <h3>Performance</h3>
+              <p>Fast-loading pages, optimized assets, and smooth user experiences.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="projects">
+          <div class="section-heading">
+            <p class="eyebrow">Projects</p>
+            <h2>Selected work.</h2>
+          </div>
+          <div class="projects-grid">
+            <article class="card project-card">
+              <h3>Studio Landing Page</h3>
+              <p>A modern marketing site with bold visuals and a clear conversion-focused layout.</p>
+            </article>
+            <article class="card project-card">
+              <h3>Dashboard UI</h3>
+              <p>An elegant analytics dashboard designed for clarity, speed, and usability.</p>
+            </article>
+            <article class="card project-card">
+              <h3>Portfolio Concept</h3>
+              <p>A sleek personal portfolio built to feel professional, minimal, and memorable.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="contact">
+          <div class="section-heading">
+            <p class="eyebrow">Contact</p>
+            <h2>Let’s create something great.</h2>
+          </div>
+          <div class="contact-card card">
+            <p>Interested in collaborating or discussing a project?</p>
+            <a class="btn btn-primary" href="mailto:hello@yourname.dev">hello@yourname.dev</a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p>© <span id="year"></span> Siranjeevi. All rights reserved.</p>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
