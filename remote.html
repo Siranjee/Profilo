@@ -4,6 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Vu TV Remote</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="theme-color" content="#14161a">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <style>
   :root {
     --bg: #14161a; --body: #1f2229; --btn: #2c303a; --btn-hi: #3a4050;
@@ -136,6 +141,8 @@
       statusEl.textContent = key + ' failed: cannot reach bridge';
     }
   }
+
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 
   document.querySelectorAll('[data-key]').forEach(b =>
     b.addEventListener('click', () => sendKey(b.dataset.key)));
