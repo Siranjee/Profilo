@@ -42,6 +42,9 @@
     left: 65px; top: 65px; width: 90px; height: 90px; border-radius: 50%;
     background: var(--accent); font-size: 18px;
   }
+  .app { font-size: 13px; letter-spacing: .04em; }
+  .netflix { background: #e50914; color: #fff; font-weight: 800; }
+  .prime { background: #00a8e1; color: #fff; }
   .nums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
   .status { text-align: center; font-size: 12px; opacity: .6; min-height: 16px; }
   details { font-size: 12px; opacity: .8; }
@@ -73,6 +76,11 @@
     <button data-key="BACK">Back</button>
     <button data-key="HOME">Home</button>
     <button data-key="MENU">Menu</button>
+  </div>
+
+  <div class="row">
+    <button class="app netflix" data-key="NETFLIX">NETFLIX</button>
+    <button class="app prime" data-key="PRIME_VIDEO">prime video</button>
   </div>
 
   <div class="row">
