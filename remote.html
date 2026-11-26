@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vu TV Remote</title>
+<style>
+  :root {
+    --bg: #14161a; --body: #1f2229; --btn: #2c303a; --btn-hi: #3a4050;
+    --text: #e9ecf2; --accent: #4f8cff; --power: #e5484d;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    margin: 0; min-height: 100vh; background: var(--bg); color: var(--text);
+    font-family: system-ui, sans-serif; display: flex; justify-content: center;
+    padding: 16px;
+  }
+  .remote {
+    width: 100%; max-width: 340px; background: var(--body); border-radius: 36px;
+    padding: 20px 22px 28px; display: flex; flex-direction: column; gap: 18px;
+    box-shadow: 0 12px 40px rgba(0,0,0,.5);
+  }
+  .brand { text-align: center; font-weight: 700; letter-spacing: .3em; opacity: .7; }
+  .row { display: flex; justify-content: space-between; gap: 12px; }
+  button {
+    appearance: none; border: 0; border-radius: 16px; background: var(--btn);
+    color: var(--text); font-size: 15px; font-weight: 600; min-height: 52px;
+    flex: 1; cursor: pointer; transition: transform .06s, background .1s;
+  }
+  button:active { transform: scale(.94); background: var(--btn-hi); }
+  .power { background: var(--power); flex: 0 0 64px; border-radius: 50%; height: 64px; font-size: 22px; }
+  .pair { display: flex; flex-direction: column; gap: 8px; flex: 0 0 64px; }
+  .pair button { border-radius: 24px; min-height: 56px; font-size: 22px; }
+  .dpad {
+    position: relative; width: 220px; height: 220px; margin: 0 auto;
+    border-radius: 50%; background: var(--btn);
+  }
+  .dpad button { position: absolute; background: transparent; width: 70px; height: 70px; font-size: 22px; flex: none; }
+  .dpad .up { top: 6px; left: 75px; } .dpad .down { bottom: 6px; left: 75px; }
+  .dpad .left { left: 6px; top: 75px; } .dpad .right { right: 6px; top: 75px; }
+  .dpad .ok {
+    left: 65px; top: 65px; width: 90px; height: 90px; border-radius: 50%;
+    background: var(--accent); font-size: 18px;
+  }
+  .app { font-size: 13px; letter-spacing: .04em; }
+  .netflix { background: #e50914; color: #fff; font-weight: 800; }
+  .prime { background: #00a8e1; color: #fff; }
+  .nums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .status { text-align: center; font-size: 12px; opacity: .6; min-height: 16px; }
+  details { font-size: 12px; opacity: .8; }
+  details input {
+    width: 100%; margin-top: 6px; padding: 8px; border-radius: 8px;
+    border: 1px solid var(--btn-hi); background: var(--bg); color: var(--text);
+  }
+</style>
+</head>
+<body>
+<main class="remote">
+  <div class="brand">VU</div>
+
+  <div class="row">
+    <button class="power" data-key="POWER" aria-label="Power">⏻</button>
+    <button data-key="INPUT">Input</button>
+    <button data-key="MUTE">Mute</button>
+  </div>
+
+  <div class="dpad">
+    <button class="up" data-key="UP" aria-label="Up">▲</button>
+    <button class="left" data-key="LEFT" aria-label="Left">◀</button>
+    <button class="ok" data-key="OK">OK</button>
+    <button class="right" data-key="RIGHT" aria-label="Right">▶</button>
+    <button class="down" data-key="DOWN" aria-label="Down">▼</button>
+  </div>
+
+  <div class="row">
+    <button data-key="BACK">Back</button>
+    <button data-key="HOME">Home</button>
+    <button data-key="MENU">Menu</button>
+  </div>
+
+  <div class="row">
+    <button class="app netflix" data-key="NETFLIX">NETFLIX</button>
+    <button class="app prime" data-key="PRIME_VIDEO">prime video</button>
+  </div>
+
+  <div class="row">
+    <div class="pair">
+      <button data-key="VOL_UP" aria-label="Volume up">+</button>
+      <div style="text-align:center;font-size:12px;opacity:.6">VOL</div>
+      <button data-key="VOL_DOWN" aria-label="Volume down">−</button>
+    </div>
+    <div class="nums" style="flex:1">
+      <button data-key="1">1</button><button data-key="2">2</button><button data-key="3">3</button>
+      <button data-key="4">4</button><button data-key="5">5</button><button data-key="6">6</button>
+      <button data-key="7">7</button><button data-key="8">8</button><button data-key="9">9</button>
+      <span></span><button data-key="0">0</button><span></span>
+    </div>
+    <div class="pair">
+      <button data-key="CH_UP" aria-label="Channel up">+</button>
+      <div style="text-align:center;font-size:12px;opacity:.6">CH</div>
+      <button data-key="CH_DOWN" aria-label="Channel down">−</button>
+    </div>
+  </div>
+
+  <div class="status" id="status"></div>
+
+  <details>
+    <summary>Connection settings</summary>
+    <input id="endpoint" placeholder="Bridge URL, e.g. http://192.168.1.50:8080/key">
+  </details>
+</main>
+
+<script>
+  // Each button press calls sendKey(name). With a bridge URL set, it POSTs
+  // {"key": "<NAME>"} there; a small helper on your home network turns that
+  // into the real command for the TV. With no URL set, it only shows the press.
+  const statusEl = document.getElementById('status');
+  const endpointEl = document.getElementById('endpoint');
+  try { endpointEl.value = localStorage.getItem('vu-remote-endpoint') || ''; } catch (e) {}
+  endpointEl.addEventListener('change', () => {
+    try { localStorage.setItem('vu-remote-endpoint', endpointEl.value.trim()); } catch (e) {}
+  });
+
+  async function sendKey(key) {
+    if (navigator.vibrate) navigator.vibrate(15);
+    const url = endpointEl.value.trim();
+    if (!url) { statusEl.textContent = key + ' (not connected)'; return; }
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ key })
+      });
+      statusEl.textContent = res.ok ? key + ' sent' : key + ' failed (' + res.status + ')';
+    } catch (e) {
+      statusEl.textContent = key + ' failed: cannot reach bridge';
+    }
+  }
+
+  document.querySelectorAll('[data-key]').forEach(b =>
+    b.addEventListener('click', () => sendKey(b.dataset.key)));
+</script>
+</body>
+</html>
